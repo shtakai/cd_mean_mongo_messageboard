@@ -87,10 +87,39 @@ app.post('/messages', function(req, res){
   message.save(function(err, _message){
     if(err){
       console.log('error', err);
-      res.render('index', {error: err});
+      res.json(err);
     }else{
       console.log('saved', _message);
       res.redirect('/');
+    }
+  });
+})
+
+app.post('/messages/:id/comments', function(req, res){
+  console.log('post /m/id/comments');
+  console.log('req.body', req.body);
+  // grab one message
+  Message.findOne({_id: req.params.id}, function(err, message){
+    if(err){
+      console.log('error',err);
+      res.json(err);
+    } else {
+      console.log(`message: ${message}`);
+      let comment = new Comment(req.body);
+      comment.save(function(err){
+        message.comments.push(comment);
+        message.save(function(err){
+          if(err){
+            console.log('err', err);
+            res.json(err);
+          }else{
+            console.log('comment/message okay okok');
+            console.log(`comment_id:${comment._id}`);
+            console.log(`message_id:${message._id}`);
+            res.redirect('/');
+          }
+        });
+      });
     }
   });
 })

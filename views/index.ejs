@@ -3,17 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <title>Dojo Message Board</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Eczar" rel="stylesheet">
 <style>
+* {
+  font-family: 'Eczar', serif;
+}
 .well {
   margin: 30px;
 }
 .message {
-  background-color: darkgray;
+  background-color: #34B38C;
   font-size: 0.9em;
 }
 .comment {
-  background-color: purple;
-  font-size: 0.6em;
+  background-color: #E8AC3C;
+  font-size: 0.8em;
 }
 </style>
 </head>
@@ -46,7 +51,6 @@
     </form>
 
     <div class="well">
-      <%= messages %>
       <% for(let m of messages){ %>
         <hr>
         <div class="well message">
