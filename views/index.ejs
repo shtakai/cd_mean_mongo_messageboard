@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Dojo Message Board</title>
+<style>
+.well {
+  margin: 30px;
+}
+.message {
+  background-color: darkgray;
+  font-size: 0.9em;
+}
+.comment {
+  background-color: purple;
+  font-size: 0.6em;
+}
+</style>
 </head>
 <body>
   <div class="container">
@@ -16,6 +29,7 @@
     <div>
       <h2>The Dojo Message Board</h2>
     </div>
+    <hr>
 
     <form action="/messages" method="POST">
       <div>
@@ -30,6 +44,49 @@
         <input type="submit" value="Post message">
       </div>
     </form>
+
+    <div class="well">
+      <%= messages %>
+      <% for(let m of messages){ %>
+        <hr>
+        <div class="well message">
+          <div>
+            Name: <%= m.name %>
+          </div>
+          <div>
+            Message: <p><%= m.text %></p>
+          </div>
+
+          <% for(var c of m.comments) {%>
+
+          <div class="well comment">
+            <div>
+              Name:<%= c.name %>
+            </div>
+            <div>
+              Comment: <p><%= c.text %></p>
+            </div>
+          </div>
+
+          <% }%>
+          <div>
+            <form action="/messages/<%= m._id %>/comments" method="POST">
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+              </div>
+              <div>
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="text" cols="30" rows="10"></textarea>
+              </div>
+              <div>
+                <input type="submit" value="Post comment">
+              </div>
+            </form>
+          </div>
+        </div>
+      <% } %>
+    </div>
 
   </div>
 </body>

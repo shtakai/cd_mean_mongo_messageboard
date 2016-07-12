@@ -65,7 +65,18 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
   console.log('get /');
-  res.render('index');
+  Message.find({}).
+    sort({createdAt: -1}).
+    populate('comments').
+    exec(function(err, _messages){
+      if(err){
+        console.log('err', err);
+        res.json(err);
+      } else {
+        console.log('get message');
+        res.render('index', {messages: _messages});
+      }
+    })
 })
 
 app.post('/messages', function(req, res){
