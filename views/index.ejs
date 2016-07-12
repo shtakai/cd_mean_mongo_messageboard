@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dojo Message Board</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Eczar" rel="stylesheet">
+<style>
+* {
+  font-family: 'Eczar', serif;
+}
+.well {
+  margin: 30px;
+}
+.message {
+  background-color: #34B38C;
+  font-size: 0.9em;
+}
+.comment {
+  background-color: #E8AC3C;
+  font-size: 0.8em;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="alert alert-danger">
+      <% if (typeof(error) !== 'undefined') { %>
+          <div>
+            <%= error %>
+          </div>
+      <% } %>
+    </div>
+    <div>
+      <h2>The Dojo Message Board</h2>
+    </div>
+    <hr>
+
+    <form action="/messages" method="POST">
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="text" cols="30" rows="10"></textarea>
+      </div>
+      <div>
+        <input type="submit" value="Post message">
+      </div>
+    </form>
+
+    <div class="well">
+      <% for(let m of messages){ %>
+        <hr>
+        <div class="well message">
+          <div>
+            Name: <%= m.name %>
+          </div>
+          <div>
+            Message: <p><%= m.text %></p>
+          </div>
+
+          <% for(var c of m.comments) {%>
+
+          <div class="well comment">
+            <div>
+              Name:<%= c.name %>
+            </div>
+            <div>
+              Comment: <p><%= c.text %></p>
+            </div>
+          </div>
+
+          <% }%>
+          <div>
+            <form action="/messages/<%= m._id %>/comments" method="POST">
+              <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+              </div>
+              <div>
+                <label for="comment">Comment:</label>
+                <textarea id="comment" name="text" cols="30" rows="10"></textarea>
+              </div>
+              <div>
+                <input type="submit" value="Post comment">
+              </div>
+            </form>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "cd_mean_mongo_messageboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shtakai/cd_mean_mongo_messageboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shtakai/cd_mean_mongo_messageboard/issues"
+  },
+  "homepage": "https://github.com/shtakai/cd_mean_mongo_messageboard#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0",
+    "faker": "^3.1.0",
+    "mongoose": "^4.5.4",
+    "path": "^0.12.7"
+  }
+}
