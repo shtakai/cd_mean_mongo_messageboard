@@ -7,7 +7,10 @@ const Schema = mongoose.Schema;
 const app = express();
 
 
+// bodyparser
+app.use(bodyParser.urlencoded({extended: true}));
 
+// mongoose connect to mongodb
 mongoose.connect('mongodb://localhost/dojo_message_board_development');
 
 // Schema
@@ -50,8 +53,8 @@ const CommentSchema = new mongoose.Schema({
 });
 
 // register
-mongoose.model('Message', MessageSchema );
-mongoose.model('Comment', CommentSchema);
+var Message = mongoose.model('Message', MessageSchema );
+var Comment = mongoose.model('Comment', CommentSchema);
 
 
 app.set('views', path.join(__dirname, './views'));
@@ -68,7 +71,17 @@ app.get('/', function(req, res){
 app.post('/messages', function(req, res){
   console.log('post /messages');
   console.log('body', req.body);
-  res.send('---');
+  let message = new Message(req.body);
+  console.log(`message: ${message}`);
+  message.save(function(err, _message){
+    if(err){
+      console.log('error', err);
+      res.render('index', {error: err});
+    }else{
+      console.log('saved', _message);
+      res.redirect('/');
+    }
+  });
 })
 
 

@@ -6,6 +6,13 @@
 </head>
 <body>
   <div class="container">
+    <div class="alert alert-danger">
+      <% if (typeof(error) !== 'undefined') { %>
+          <div>
+            <%= error %>
+          </div>
+      <% } %>
+    </div>
     <div>
       <h2>The Dojo Message Board</h2>
     </div>
@@ -17,7 +24,7 @@
       </div>
       <div>
         <label for="message">Message:</label>
-        <textarea id="message" name="message" cols="30" rows="10"></textarea>
+        <textarea id="message" name="text" cols="30" rows="10"></textarea>
       </div>
       <div>
         <input type="submit" value="Post message">
